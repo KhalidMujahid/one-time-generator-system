@@ -60,6 +60,9 @@ app.post("/register", async (req, res) => {
     const hashedPin = await bcrypt.hash(pin, 10);
     const otp = generateOTP();
 
+    const checkExit = await User.findOne({ email });
+    if(checkExit) return res.status(400).json({ error: "User Already Exit" });
+
     const newUser = new User({
       email,
       fullname,
@@ -69,10 +72,7 @@ app.post("/register", async (req, res) => {
 
     await newUser.save();
 
-   
-    await sendOTPEmail(email, otp);
-
-    res.status(200).json({ message: "User registered, OTP sent to email" });
+    res.status(200).json({ message: "User registered" });
   } catch (error) {
   console.log(error);
     res.status(400).json({ error: "User registration failed" });

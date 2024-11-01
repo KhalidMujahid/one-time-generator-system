@@ -37,8 +37,11 @@ function Login() {
           value={pin}
           onChange={(e) => setPin(e.target.value)}
         />
-        <button className="w-full bg-blue-500 text-white py-2 rounded">
+        <button className="w-full mb-4 bg-blue-500 text-white py-2 rounded">
           Login
+        </button>
+        <button onClick={() => navigate("/")} className="w-full bg-green-500 text-white py-2 rounded">
+          Don't have an account
         </button>
       </form>
     </div>
